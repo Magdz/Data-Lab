@@ -5,6 +5,9 @@
  */
 package dct;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author dinan
@@ -26,19 +29,22 @@ public class Main {
           {9,-4,-17,-35,-52,-61,-57,-35}
         }, out[][];
         
-        DCT compress = new DCT(in);
+        List<List<Double>> input = new ArrayList<List<Double>>();
+        csvReader reader = new csvReader();
+        input = reader.read("ArabWorld.csv");
+        reader.print(input);
         
-        out = compress.computeDCT();
+       // DCT compress = new DCT(in);
+       // out = compress.computeDCT();
         int i,j;
-        for(i=0;i<out.length;i++)
+        for(i=0;i<input.size();i++)
         {
-            for(j=0;j<out[i].length;j++)
+            for(j=0;j<input.get(i).size();j++)
             {
-                System.out.print(out[i][j]);
+                System.out.print(input.get(i).get(j));
                 System.out.print(" ");
             }
             System.out.println("\n");
-            
         }
     }
 }
