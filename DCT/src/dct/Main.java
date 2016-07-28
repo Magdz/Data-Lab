@@ -29,22 +29,34 @@ public class Main {
           {9,-4,-17,-35,-52,-61,-57,-35}
         }, out[][];
         
-        List<List<Double>> input = new ArrayList<List<Double>>();
-        csvReader reader = new csvReader();
-        input = reader.read("ArabWorld.csv");
-        reader.print(input);
+//        List<List<Double>> input = new ArrayList<>();
+//        csvReader reader = new csvReader();
+//        input = reader.read("ArabWorld.csv");
+//        reader.print(input);
         
-       // DCT compress = new DCT(in);
-       // out = compress.computeDCT();
+        DCT compress = new DCT(in);
+        out = compress.computeDCT();
+        
         int i,j;
-        for(i=0;i<input.size();i++)
+//        for(i=0;i<out.size();i++)
+//        {
+//            for(j=0;j<input.get(i).size();j++)
+//            {
+//                System.out.print(input.get(i).get(j));
+//                System.out.print(" ");
+//            }
+//            System.out.println("\n");
+//        }
+        
+        for(i=0;i<out.length;i++)
         {
-            for(j=0;j<input.get(i).size();j++)
+            for(j=0;j<out[i].length;j++)
             {
-                System.out.print(input.get(i).get(j));
+                System.out.print(out[i][j]);
                 System.out.print(" ");
             }
             System.out.println("\n");
+            
         }
     }
 }

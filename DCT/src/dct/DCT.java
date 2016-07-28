@@ -31,26 +31,35 @@ public class DCT {
 
     public double[][] computeDCT ()
     {
-        double s = 1/N;
         for (u=0;u<N;u++)
         {
             for(v=0;v<M;v++)
             {
-                if(u == 0 && v==0)
+                if(u == 0)
                     coefU = sqrt(1/(double)N);
                 else 
                     coefU = sqrt (2/(double)N); 
-                coefV = coefU;
+                
+                if(v == 0)
+                    coefV = sqrt(1/(double)M);
+                else 
+                    coefV = sqrt (2/(double)M); 
+                
+                double sum = 0.0;
                 
                 for(x=0;x<N;x++)
                 {
                     for(y=0;y<M;y++)
                     {
-                        out[u][v] += (int)round(coefU*coefV*(in[x][y] *
-                                cos((PI*u*((2*x)+1))/(2*(double)N))*
-                                cos((PI*v*((2*y)+1))/(2*(double)N))));
+                        sum += (in[x][y] *
+                                cos((PI*u*(2*x+1))/(2.0*N))*
+                                cos((PI*v*(2*y+1))/(2.0*M))
+                                );
+                        
                     }
                 }
+                
+                out[u][v] = round(coefU*coefV*sum);
                 
             }
         }
