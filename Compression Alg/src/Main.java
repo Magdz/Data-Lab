@@ -18,7 +18,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        double in[][] =
+        double dctIn[][] =
         { {75,76,75,75,69,66,77,71},
           {73,74,73,74,63,64,68,69},
           {69,68,71,72,67,58,48,41},
@@ -29,34 +29,18 @@ public class Main {
           {9,-4,-17,-35,-52,-61,-57,-35}
         }, out[][];
         
-//        List<List<Double>> input = new ArrayList<>();
-//        csvReader reader = new csvReader();
-//        input = reader.read("ArabWorld.csv");
-//        reader.print(input);
-        
-        DCT compress = new DCT(in);
+        DCT compress = new DCT(dctIn);
         out = compress.computeDCT();
         
-        int i,j;
-//        for(i=0;i<out.size();i++)
-//        {
-//            for(j=0;j<input.get(i).size();j++)
-//            {
-//                System.out.print(input.get(i).get(j));
-//                System.out.print(" ");
-//            }
-//            System.out.println("\n");
-//        }
-        
-        for(i=0;i<out.length;i++)
-        {
-            for(j=0;j<out[i].length;j++)
-            {
-                System.out.print(out[i][j]);
-                System.out.print(" ");
-            }
-            System.out.println("\n");
-            
-        }
+        double dftIn[][] = {{2.0, 0},
+        {3.0, 0},
+        {-1.0, 0},
+        {1.0, 0},};
+        double outreal[][] = new double[dftIn.length][dftIn[0].length];
+        double outimag[][] = new double[dftIn.length][dftIn[0].length];
+
+        DFT compress = new DFT(dftIn, outreal, outimag);
+        compress.computeDFT();
+        compress.printDFT();
     }
 }
