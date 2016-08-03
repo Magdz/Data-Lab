@@ -5,14 +5,17 @@
  */
 package dft;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author dinan
  */
 public class DFT {
 
-    double inreal[][],outreal[][],outimag[][];
-    public DFT(double inreal[][], double outreal[][],double outimag[][]){
+    List<List<Double>> inreal,outreal,outimag;
+    public DFT(List<List<Double>> inreal, List<List<Double>> outreal,List<List<Double>> outimag){
         this.inreal = inreal;
         this.outreal = outreal;
         this.outimag = outimag;
@@ -20,10 +23,12 @@ public class DFT {
     
     public void computeDFT() 
     {    
-        int n = inreal.length;
-        int m = inreal[0].length;
+        int n = inreal.size();
+        int m = inreal.get(0).size();
         
-        for (int k = 0; k < n; k++) {  // For each output element
+        for (int k = 0; k < n; k++) {
+            outreal.add(new ArrayList<Double>());
+            outimag.add(new ArrayList<Double>());// For each output element
             for(int p=0;p<m;p++)
             {
                 double sumreal = 0;
@@ -31,27 +36,27 @@ public class DFT {
             for (int t = 0; t < n; t++) {  // For each input element
                 for (int i = 0; i < m; i++) {
                     double angle = 2 * Math.PI * t * k / n;
-                    sumreal += inreal[t][i] * Math.cos(angle);
-                    sumimag += -inreal[t][i] * Math.sin(angle);
+                    sumreal += inreal.get(t).get(i) * Math.cos(angle);
+                    sumimag += -inreal.get(t).get(i) * Math.sin(angle);
                 }
             }
-            outreal[k][p] = sumreal;
-            outimag[k][p] = sumimag;
+            outreal.get(k).add(sumreal);
+            outimag.get(k).add(sumimag);
             }
         }        
     }
     
     public void printDFT()
     {
-        for (int i = 0; i < outreal.length; i++) {
-            for (int j = 0; j < outreal[i].length; j++) {
-                if (Math.round(outreal[i][j]) != 0) {
-                    System.out.print(Math.round(outreal[i][j]));
+        for (int i = 0; i < outreal.size(); i++) {
+            for (int j = 0; j < outreal.get(i).size(); j++) {
+                if (Math.round(outreal.get(i).get(j)) != 0) {
+                    System.out.print(Math.round(outreal.get(i).get(j)));
                 }
-                if (Math.round(outimag[i][j]) != 0) {
-                    if (Math.round(outimag[i][j]) > 0)
+                if (Math.round(outimag.get(i).get(j)) != 0) {
+                    if (Math.round(outimag.get(i).get(j)) > 0)
                         System.out.print("+");
-                    System.out.print(Math.round(outimag[i][j]));
+                    System.out.print(Math.round(outimag.get(i).get(j)));
                     System.out.print("j");
                 }
                 System.out.print(" ");
@@ -60,11 +65,11 @@ public class DFT {
         }
     }
     
-    public double[][] getReal()
+    public List<List<Double>> getReal()
     {
         return outreal;
     }
-    public double[][] getImag()
+    public List<List<Double>> getImag()
     {
         return outimag;
     }
