@@ -6,14 +6,17 @@
 package dct;
 
 import static java.lang.Math.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author dinan
  */
 public class DCT {
-
-    double in[][], out[][];
+    List<List<Double>> inmatrix = new ArrayList<List<Double>>();
+    List<List<Double>> outmatrix = new ArrayList<List<Double>>();    
+//double in[][], out[][];
     //Matrix dimensions
     int N, M;
     //coefecients
@@ -21,15 +24,16 @@ public class DCT {
     //iterators
     int x, y, u, v;
 
-    public DCT(double in[][]) {
-        this.in = in;
-        N = in.length;
-        M = in[0].length;
-        this.out = new double[N][M];
+    public DCT(List<List<Double>> inmatrix) {
+        this.inmatrix = inmatrix;
+        N = inmatrix.size();
+        M = inmatrix.get(0).size();
+        
     }
 
-    public double[][] computeDCT() {
+    public List<List<Double>> computeDCT() {
         for (u = 0; u < N; u++) {
+            outmatrix.add(new ArrayList<Double>());
             for (v = 0; v < M; v++) {
                 if (u == 0) {
                     coefU = sqrt(1 / (double) N);
@@ -47,24 +51,22 @@ public class DCT {
 
                 for (x = 0; x < N; x++) {
                     for (y = 0; y < M; y++) {
-                        sum += (in[x][y]
+                        sum += (inmatrix.get(x).get(y)
                                 * cos((PI * u * (2 * x + 1)) / (2.0 * N))
                                 * cos((PI * v * (2 * y + 1)) / (2.0 * M)));
 
                     }
                 }
-
-                out[u][v] = round(coefU * coefV * sum);
-
+                outmatrix.get(u).add((double)round(coefU * coefV * sum)) ;
             }
         }
-        return out;
+        return outmatrix;
     }
 
     public void printDCT() {
-        for (int i = 0; i < out.length; i++) {
-            for (int j = 0; j < out[i].length; j++) {
-                System.out.print(out[i][j]);
+        for (int i = 0; i < outmatrix.size(); i++) {
+            for (int j = 0; j < outmatrix.get(0).size(); j++) {
+                System.out.print(outmatrix.get(i).get(j));
                 System.out.print(" ");
             }
             System.out.println("\n");
