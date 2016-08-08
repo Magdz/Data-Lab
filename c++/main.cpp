@@ -21,23 +21,24 @@ int main(int argc, char* argv[])
     std::vector<vector<double>> inputMatrix;
 
     try{
-        readInput(argv[1], inputMatrix);
+        inputMatrix = readInput(argv[1]);
     }catch(exception e){
         printf("The file you are trying to read does not exists");
         return 0;
     }
 
-    std::vector<double> outputMatrix(inputMatrix.capacity());
+    std::vector<double> outReal(inputMatrix.capacity());
+    std::vector<double> outImag(inputMatrix.capacity());
 
     // strcmp returns 0 if the strings are equal
     if(!strcmp(argv[2], "dft")){
         cout << "DFT: " << endl;
-        computeDFT(inputMatrix[0], outputMatrix);
-        printDFT(outputMatrix);
+        computeDFT(inputMatrix[0], outReal, outImag);
+        printDFT(outReal,outImag);
     }else if(!strcmp(argv[2], "dct")){
         cout << "DCT: " <<endl;
-        computeDCT(inputMatrix[0], outputMatrix);
-        printDCT(outputMatrix);
+        computeDCT(inputMatrix[0], outReal);
+        printDCT(outReal);
     }else{
         printf("Compression function is not correct");
     }
