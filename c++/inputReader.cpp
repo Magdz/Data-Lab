@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void readInput(string filename, vector<vector<double>> &matrix)
+vector<vector<double>> readInput(string filename)
 {
     string line;
     fstream infile(filename);
@@ -17,17 +17,14 @@ void readInput(string filename, vector<vector<double>> &matrix)
     stringstream ss(line);
     string cell;
 
+    //Get row and column count
     while(getline(ss,cell,','))
         cols++;
-
     while(getline(infile, line))
         rows++;
-
     infile.close();
 
-    matrix.resize(rows);
-    for(int k=0;k<rows;k++)
-        matrix[k].resize(cols);
+    vector<vector<double>> matrix(cols,vector<double>(rows));
 
     infile.open(filename);
     for(int i=0;i<rows;i++)
@@ -37,10 +34,11 @@ void readInput(string filename, vector<vector<double>> &matrix)
         for(int j=0;j<cols && getline(ss,cell,',');j++)
         {
             double vect = atof(cell.c_str());
-            matrix[i][j] = vect;
+            matrix[j][i] = vect;
         }
     }
     infile.close();
+    return matrix;
 }
 
 
