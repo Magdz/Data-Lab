@@ -13,13 +13,13 @@ main.o: main.cpp
 	g++ $(flags) main.cpp
 
 inputReader.o: inputReader.cpp
-	g++ $(flags) inputReader.cpp
+	g++ $(flags) inputReader.h
 
 DFT.o: DFT.cpp
-	g++ $(flags) DFT.cpp
+	g++ $(flags) DFT.h
 
 DCT.o: DCT.cpp
-	g++ $(flags) DCT.cpp
+	g++ $(flags) DCT.h
 
 clean:
 	rm -rf *o DataLab
