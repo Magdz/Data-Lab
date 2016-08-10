@@ -12,7 +12,7 @@ DataLab: main.o inputReader.o DFT.o DCT.o
 main.o: main.cpp
 	g++ $(flags) main.cpp
 
-inputReader.o: inputReader.cpp
+inputReader.o: inputReader.h
 	g++ $(flags) inputReader.h
 
 DFT.o: DFT.cpp
