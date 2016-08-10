@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string.h>
-#include "DFT.cpp"
-#include "DCT.cpp"
-#include "inputReader.cpp"
+#include "DFT.h"
+#include "DCT.h"
+#include "inputReader.h"
 
 using namespace std;
 
