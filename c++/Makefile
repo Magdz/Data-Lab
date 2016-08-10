@@ -15,10 +15,10 @@ main.o: main.cpp
 inputReader.o: inputReader.h
 	g++ $(flags) inputReader.h
 
-DFT.o: DFT.cpp
+DFT.o: DFT.h
 	g++ $(flags) DFT.h
 
-DCT.o: DCT.cpp
+DCT.o: DCT.h
 	g++ $(flags) DCT.h
 
 clean:
