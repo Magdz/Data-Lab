@@ -8,7 +8,7 @@ using namespace std;
 
 vector<vector<double>> readInput(string filename)
 {
-    string filessss = filename;
+
     string line;
     fstream infile(filename);
     int rows = 1;
@@ -74,4 +74,16 @@ void printMat(vector<vector<double>>matrix)
         }
         cout << endl;
     }
+}
+void printMat1D (vector<double> matrix)
+{
+   cout << "Printing Row: ";
+   cout <<endl;
+   int i;
+   for(i=0;i<matrix.size()-1;i++)
+   {   
+      cout << matrix[i] << ", ";
+   }
+   cout << matrix[i];
+   cout <<endl;
 }

@@ -20,14 +20,14 @@ void computeDFT (vector<double> &in, vector<double> &outReal, vector<double> &ou
             sumreal += in[k]*cos(angle);
             sumimag += -in[k]*sin(angle);
         }
-        outReal[i] = sumreal;
-        outImag[i] = sumimag;
+        outReal.push_back(sumreal);
+        outImag.push_back(sumimag);
     }
 }
 
 void printDFT(vector<double> &inReal, vector<double> &inImag)
 {
-    for(int i=0;i<inReal.capacity();i++)
+    for(int i=0;i<inReal.size();i++)
     {
         cout << inReal[i];
         cout << " ";

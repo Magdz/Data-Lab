@@ -21,7 +21,7 @@ void computeDCT(vector<double> &in, vector<double> &out)
             float cs = cos(angle);
             sum += in[x]*cs;
         }
-        out[u] = c*sum;
+        out.push_back(c*sum);
         c= sqrt(2/(double)N);
     }
 }

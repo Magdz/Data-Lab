@@ -27,19 +27,24 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    std::vector<double> outReal(inputMatrix.capacity());
-    std::vector<double> outImag(inputMatrix.capacity());
+    std::vector<double> outReal;
+    std::vector<double> outImag;
 
     // strcmp returns 0 if the strings are equal
     if(!strcmp(argv[2], "dft")){
         cout << "DFT: " << endl;
-        computeDFT(inputMatrix[0], outReal, outImag);
+        computeDFT(inputMatrix[1], outReal, outImag);
         printDFT(outReal,outImag);
     }else if(!strcmp(argv[2], "dct")){
         cout << "DCT: " <<endl;
-        computeDCT(inputMatrix[0], outReal);
+        computeDCT(inputMatrix[1], outReal);
         printDCT(outReal);
-    }else{
+    }
+    else if (!strcmp(argv[2],"printMatrix")){
+    	cout << "Printing Matrix: " <<endl;
+        printMat1D(inputMatrix[1]);
+    }
+    else{
         printf("Compression function is not correct");
     }
 
