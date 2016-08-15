@@ -1,5 +1,5 @@
 flags = -std=c++11
-post = -static-stdlibc++ -o
+post = -static-libstdc++ -o
 
 all: DataLab
 
@@ -8,7 +8,7 @@ edit:
 compile:
 
 DataLab: main.o inputReader.o DFT.o DCT.o
-	g++ main.o inputReader.o DFT.o DCT.o $(post) DataLab
+	g++ $(flags) main.cpp inputReader.h DFT.h DCT.h $(post) DataLab
 
 main.o: main.cpp
 	g++ $(flags) main.cpp
