@@ -30,19 +30,23 @@ int main(int argc, char* argv[])
     std::vector<double> outReal;
     std::vector<double> outImag;
 
+    int cloumn;
+    sscanf(argv[3], "%i", &cloumn);
+
     // strcmp returns 0 if the strings are equal
     if(!strcmp(argv[2], "dft")){
         cout << "DFT: " << endl;
-        computeDFT(inputMatrix[1], outReal, outImag);
+        computeDFT(inputMatrix[cloumn], outReal, outImag);
         printDFT(outReal,outImag);
-    }else if(!strcmp(argv[2], "dct")){
+    }
+    else if(!strcmp(argv[2], "dct")){
         cout << "DCT: " <<endl;
-        computeDCT(inputMatrix[1], outReal);
+        computeDCT(inputMatrix[cloumn], outReal);
         printDCT(outReal);
     }
-    else if (!strcmp(argv[2],"printMatrix")){
+    else if (!strcmp(argv[2],"print")){
     	cout << "Printing Matrix: " <<endl;
-        printMat1D(inputMatrix[1]);
+        printMat1D(inputMatrix[cloumn]);
     }
     else{
         printf("Compression function is not correct");

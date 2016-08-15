@@ -65,6 +65,6 @@ void printDCT(vector<double> &in)
 {
     for(int unsigned i=0; i<in.size(); i++)
     {
-        cout << in[i] << "   " ;
+        cout << in[i] << endl;
     }
 }
