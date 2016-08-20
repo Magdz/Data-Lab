@@ -82,7 +82,7 @@ void printMat1D (vector<double> matrix)
    int i;
    for(i=0;i<matrix.size()-1;i++)
    {   
-      cout << matrix[i] << ", ";
+      cout << matrix[i] << endl;
    }
    cout << matrix[i];
    cout <<endl;

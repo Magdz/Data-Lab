@@ -1,10 +1,19 @@
 #include <iostream>
 #include <string.h>
+#include <map>
 #include "DFT.h"
 #include "DCT.h"
 #include "inputReader.h"
 
 using namespace std;
+
+enum funct_value{
+    dft, dct, print,
+};
+
+static std::map<std::string, funct_value> map_value;
+
+static void Initialize();
 
 int main(int argc, char* argv[])
 {
@@ -18,6 +27,8 @@ int main(int argc, char* argv[])
         return 0;
     }*/
 
+    // First Step: Check the Existence of the file sent throw argv[1]
+
     std::vector<vector<double>> inputMatrix;
 
     try{
@@ -30,27 +41,42 @@ int main(int argc, char* argv[])
     std::vector<double> outReal;
     std::vector<double> outImag;
 
-    int cloumn;
-    sscanf(argv[3], "%i", &cloumn);
+    // Second Step: Map the chosen compression function sent throw argv[2] with the enum
 
-    // strcmp returns 0 if the strings are equal
-    if(!strcmp(argv[2], "dft")){
-        cout << "DFT: " << endl;
-        computeDFT(inputMatrix[cloumn], outReal, outImag);
-        printDFT(outReal,outImag);
-    }
-    else if(!strcmp(argv[2], "dct")){
-        cout << "DCT: " <<endl;
-        computeDCT(inputMatrix[cloumn], outReal);
-        printDCT(outReal);
-    }
-    else if (!strcmp(argv[2],"print")){
-    	cout << "Printing Matrix: " <<endl;
-        printMat1D(inputMatrix[cloumn]);
-    }
-    else{
-        printf("Compression function is not correct");
+    Initialize();
+
+    // Third Step: Scan the column number sent throw argv[3] which the compression will be applied on
+
+    int column;
+    sscanf(argv[3], "%i", &column);
+
+    // Run the Process
+
+    switch(map_value[argv[2]]){
+        case dft:
+            cout << "DFT: " << endl;
+            computeDFT(inputMatrix[column], outReal, outImag);
+            printDFT(outReal,outImag);
+            break;
+        case dct:
+            cout << "DCT: " <<endl;
+            computeDCT(inputMatrix[column], outReal);
+            printDCT(outReal);
+            break;
+        case print:
+            cout << "Printing Matrix: " <<endl;
+            printMat1D(inputMatrix[column]);
+            break;
+        default:
+            printf("Compression function is not correct");
+            break;
     }
 
     return 0;
+}
+
+void Initialize(){
+    map_value["dft"] = dft;
+    map_value["dct"] = dct;
+    map_value["print"] = print;
 }
