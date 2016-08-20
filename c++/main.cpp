@@ -8,7 +8,7 @@
 using namespace std;
 
 enum funct_value{
-    dft, dct, print,
+    error ,dft, dct, print,
 };
 
 static std::map<std::string, funct_value> map_value;
@@ -44,15 +44,28 @@ int main(int argc, char* argv[])
     // Second Step: Map the chosen compression function sent throw argv[2] with the enum
 
     Initialize();
+    funct_value the_funct_value;
+    try{
+        the_funct_value = map_value[argv[2]];
+    }catch(exception e){
+        printf("Compression function is not defined");
+        return 0;
+    }
 
     // Third Step: Scan the column number sent throw argv[3] which the compression will be applied on
 
     int column;
-    sscanf(argv[3], "%i", &column);
+    try{
+        column = atoi(argv[3]);
+        // No Error Exception in thrown in case of missing input error the default is 0
+    }catch(exception e){
+        printf("Error getting the column number to run the compression on");
+        return 0;
+    }
 
     // Run the Process
 
-    switch(map_value[argv[2]]){
+    switch(the_funct_value){
         case dft:
             cout << "DFT: " << endl;
             computeDFT(inputMatrix[column], outReal, outImag);
