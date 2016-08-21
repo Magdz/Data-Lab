@@ -6,14 +6,13 @@
 
 using namespace std;
 
-vector<vector<double>> readInput(string filename)
+vector<vector<long double>> readInput(string filename)
 {
-
+    string filessss = filename;
     string line;
     fstream infile(filename);
     int rows = 1;
     int cols = 0;
-    int i;
 
     getline(infile,line);
     stringstream ss(line);
@@ -26,7 +25,7 @@ vector<vector<double>> readInput(string filename)
         rows++;
     infile.close();
 
-    vector<vector<double>> matrix(cols,vector<double>(rows));
+    vector<vector<long double>> matrix(cols,vector<long double>(rows));
 
     infile.open(filename);
     for(int i=0;i<rows;i++)
@@ -35,7 +34,7 @@ vector<vector<double>> readInput(string filename)
         stringstream ss (line);
         for(int j=0;j<cols && getline(ss,cell,',');j++)
         {
-            double vect = atof(cell.c_str());
+            long double vect = atof(cell.c_str());
             matrix[j][i] = vect;
         }
     }
@@ -44,15 +43,15 @@ vector<vector<double>> readInput(string filename)
 }
 
 
-vector<vector<double>> transMatrix(vector<vector<double>> &in)
+vector<vector<long double>> transMatrix(vector<vector<long double>> &in)
 {
-    int row = in.size();
-    int col = in[0].size();
-    vector<vector<double>> out(col,vector<double>(row));
+    int unsigned row = in.size();
+    int unsigned col = in[0].size();
+    vector<vector<long double>> out(col,vector<long double>(row));
 
-    for(size_t i=0;i<row;++i)
+    for(size_t unsigned i=0;i<row;++i)
     {
-        for(size_t j=0;j<col;++j)
+        for(size_t unsigned j=0;j<col;++j)
         {
             out[j][i] = in [i][j];
         }
@@ -62,12 +61,12 @@ vector<vector<double>> transMatrix(vector<vector<double>> &in)
 }
 
 
-void printMat(vector<vector<double>>matrix)
+void printMat(vector<vector<long double>>matrix)
 {
     cout << endl;
-    for(int i=0;i<matrix.size();i++)
+    for(int unsigned i=0;i<matrix.size();i++)
     {
-        for(int j=0;j<matrix[0].size();j++)
+        for(int unsigned j=0;j<matrix[0].size();j++)
         {
             cout << matrix[i][j] << "   ";
 
@@ -75,15 +74,16 @@ void printMat(vector<vector<double>>matrix)
         cout << endl;
     }
 }
-void printMat1D (vector<double> matrix)
+
+void printMat1D(vector<long double>matrix)
 {
-   cout << "Printing Row: ";
-   cout <<endl;
-   int i;
-   for(i=0;i<matrix.size()-1;i++)
-   {   
-      cout << matrix[i] << endl;
-   }
-   cout << matrix[i];
-   cout <<endl;
+    cout << endl;
+
+    for(int unsigned j=0;j<matrix.size();j++)
+    {
+        cout << matrix[j];
+        cout << "   ";
+
+    }
+
 }
