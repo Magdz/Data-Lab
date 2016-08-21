@@ -26,9 +26,9 @@ void computeDCT(vector<long double> &in, vector<long double> &out)
     }
 }
 
-void computeIDCT(vector<long double> &in, vector<long double> &out)
+void computeIDCT(vector<long double> &in, vector<long double> &out,double per)
 {
-    int N = in.size();
+    int N = in.size()*per;
     __float128 sum;
     long double angle;
     long double cs;
@@ -36,15 +36,19 @@ void computeIDCT(vector<long double> &in, vector<long double> &out)
     for(int u=0; u<N; u++)
     {
         sum = 0.0;
-        c = sqrt(1/(long double)N);
-        for (int x=0; x<N; x++)
+        c = sqrt(1/(long double)in.size());
+        for (int x=0; x<in.size(); x++)
         {
-            angle = (M_PI*(2*(long double)u+1)*(long double)x)/(2*(long double)N);
+            angle = (M_PI*(2*(long double)u+1)*(long double)x)/(2*(long double)in.size());
             cs = cos((long double)angle);
             sum += c*in[x]*cs;
-            c = sqrt(2.0/(long double)N);
+            c = sqrt(2.0/(long double)in.size());
         }
         out.push_back(sum);
+    }
+    for(int i=0; i<(in.size()-N); i++)
+    {
+        out.push_back(0.0);
     }
 
 }
