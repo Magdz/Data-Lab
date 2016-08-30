@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 
     // Fourth Step: Make sure that the sent percentage throw argv[4] is between 0 and 1
 
-    long double percentage = atoi(argv[4]);
+    long double percentage = atof(argv[4]);
     if(!(percentage >= 0 && percentage <= 1)){
         printf("Percentage error: the percentage must be between 0 and 1");
         return 0;
