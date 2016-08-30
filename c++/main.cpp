@@ -130,6 +130,6 @@ void ProcessDCT(int column, long double percentage){
     vector<long double> Subset;
     vector<long double> outIDCT;
     getSubset(percentage, outDCT, Subset);
-    printDCT(Subset);
     computeIDCT(Subset, outIDCT, percentage);
+    printDCT(outIDCT);
 }
