@@ -8,12 +8,17 @@
 using namespace std;
 
 enum funct_value{
-    error ,dft, dct, print,
+    error ,dft, dct, processDCT, print,
 };
 
 static std::map<std::string, funct_value> map_value;
+static std::vector<vector<long double>> inputMatrix;
 
 static void Initialize();
+
+static void RunDFT(int column);
+static vector<long double> RunDCT(int column, bool print);
+static void ProcessDCT(int column, long double percentage);
 
 int main(int argc, char* argv[])
 {
@@ -21,6 +26,7 @@ int main(int argc, char* argv[])
     //argv[1] the filename for the dataset to read
     //argv[2] the compression function to be used
     //argv[3] the index of the column to compress
+    //argv[4] the percentage of the subset
 
     /*if( argc != 2 ){
         printf("usage: %s filename", argv[0]);
@@ -29,8 +35,6 @@ int main(int argc, char* argv[])
 
     // First Step: Check the Existence of the file sent throw argv[1]
 
-    std::vector<vector<double>> inputMatrix;
-
     try{
         inputMatrix = readInput(argv[1]);
     }catch(exception e){
@@ -38,8 +42,7 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    std::vector<double> outReal;
-    std::vector<double> outImag;
+
 
     // Second Step: Map the chosen compression function sent throw argv[2] with the enum
 
@@ -63,18 +66,26 @@ int main(int argc, char* argv[])
         return 0;
     }
 
+    // Fourth Step: Make sure that the sent percentage throw argv[4] is between 0 and 1
+
+    long double percentage = atoi(argv[4]);
+    if(!(percentage >= 0 && percentage <= 1)){
+        printf("Percentage error: the percentage must be between 0 and 1");
+        return 0;
+    }
+
+
     // Run the Process
 
     switch(the_funct_value){
         case dft:
-            cout << "DFT: " << endl;
-            computeDFT(inputMatrix[column], outReal, outImag);
-            printDFT(outReal,outImag);
+            RunDFT(column);
             break;
         case dct:
-            cout << "DCT: " <<endl;
-            computeDCT(inputMatrix[column], outReal);
-            printDCT(outReal);
+            RunDCT(column, true);
+            break;
+        case processDCT:
+            ProcessDCT(column, percentage);
             break;
         case print:
             cout << "Printing Matrix: " <<endl;
@@ -84,6 +95,7 @@ int main(int argc, char* argv[])
             printf("Compression function is not correct");
             break;
     }
+    printf("Successfully computed");
 
     return 0;
 }
@@ -91,5 +103,32 @@ int main(int argc, char* argv[])
 void Initialize(){
     map_value["dft"] = dft;
     map_value["dct"] = dct;
+    map_value["processDCT"] = processDCT;
     map_value["print"] = print;
+}
+
+void RunDFT(int column){
+    std::vector<double> outReal;
+    std::vector<double> outImag;
+    cout << "DFT: " << endl;
+    computeDFT(inputMatrix[column], outReal, outImag);
+    printDFT(outReal,outImag);
+}
+
+vector<long double> RunDCT(int column, bool print){
+    std::vector<long double> outReal;
+    computeDCT(inputMatrix[column], outReal);
+    if(print){
+        cout << "DCT: " <<endl;
+        printDCT(outReal);
+    }
+    return outReal;
+}
+
+void ProcessDCT(int column, long double percentage){
+    vector<long double> outDCT = RunDCT(column, false);
+    vector<long double> Subset;
+    vector<long double> outIDCT;
+    getSubset(percentage, outDCT, Subset);
+    computeIDCT(Subset, outIDCT, percentage);
 }

@@ -5,7 +5,7 @@
 #include<complex>
 using namespace std;
 
-void computeDFT (vector<double> &in, vector<double> &outReal, vector<double> &outImag)
+void computeDFT (vector<long double> &in, vector<double> &outReal, vector<double> &outImag)
 {
     int n = in.size();
     double sumreal, sumimag;

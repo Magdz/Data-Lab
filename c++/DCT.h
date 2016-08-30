@@ -26,7 +26,7 @@ void computeDCT(vector<long double> &in, vector<long double> &out)
     }
 }
 
-void computeIDCT(vector<long double> &in, vector<long double> &out,double per)
+void computeIDCT(vector<long double> &in, vector<long double> &out, double per)
 {
     int N = in.size()*per;
     __float128 sum;
