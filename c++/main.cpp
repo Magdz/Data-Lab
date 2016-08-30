@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
             printf("Compression function is not correct");
             break;
     }
-    printf("Successfully computed");
+    printf("Successfully computed\n");
 
     return 0;
 }
@@ -130,5 +130,6 @@ void ProcessDCT(int column, long double percentage){
     vector<long double> Subset;
     vector<long double> outIDCT;
     getSubset(percentage, outDCT, Subset);
+    printDCT(Subset);
     computeIDCT(Subset, outIDCT, percentage);
 }
